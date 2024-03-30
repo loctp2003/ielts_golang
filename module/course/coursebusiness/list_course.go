@@ -20,7 +20,7 @@ type listCourseBiz struct {
 func NewListCourseBiz(store ListCourseStore) *listCourseBiz {
 	return &listCourseBiz{store: store}
 }
-func (biz *listCourseBiz) ListCoure(
+func (biz *listCourseBiz) ListCourse(
 	ctx context.Context,
 	paging *common.Paging,
 ) ([]coursemodel.Course, error) {

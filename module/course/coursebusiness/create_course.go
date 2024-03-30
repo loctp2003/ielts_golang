@@ -16,9 +16,7 @@ func NewCreateCourse(store CreateCourseStore) *createCourseBiz {
 	return &createCourseBiz{store: store}
 }
 func (biz *createCourseBiz) CreateCoure(ctx context.Context, data *coursemodel.CourseCreate) error {
-	if err := data.Validate(); err != nil {
-		return err
-	}
+
 	err := biz.store.Create(ctx, data)
 	return err
 }

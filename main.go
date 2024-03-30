@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 	"ielts/component"
 	"ielts/component/uploadprovider"
-	"ielts/module/coursetranspot/gincourse"
+	gincourse2 "ielts/module/course/coursetranspot/gincourse"
 	"log"
 	"net/http"
 	"os"
@@ -40,8 +40,9 @@ func runService(db *gorm.DB, upProvider uploadprovider.UpLoadProvider) error {
 	// CRUD
 	course := r.Group("/courses")
 	{
-		course.GET("", gincourse.ListCourse(appCtx))
-		course.POST("", gincourse.CreateCourse(appCtx))
+		course.GET("", gincourse2.ListCourse(appCtx))
+		course.POST("", gincourse2.CreateCourse(appCtx))
+		course.GET("/:id", gincourse2.GetCourse(appCtx))
 
 	}
 

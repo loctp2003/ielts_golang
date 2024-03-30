@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"ielts/common"
 	"ielts/component"
-	"ielts/module/coursebusiness"
-	"ielts/module/coursestorage"
+	"ielts/module/course/coursebusiness"
+	"ielts/module/course/coursestorage"
 	"net/http"
 )
 
@@ -21,9 +21,16 @@ func ListCourse(ctx component.AppContext) gin.HandlerFunc {
 		paging.Fulfill()
 		store := coursestorage.NewSQLStore(ctx.GetMainDBConnection())
 		biz := coursebusiness.NewListCourseBiz(store)
-		result, err := biz.ListCoure(c.Request.Context(), &paging)
+		result, err := biz.ListCourse(c.Request.Context(), &paging)
 		if err != nil {
 			panic(err)
+		}
+		for i := range result {
+			result[i].Mask(false)
+
+			if i == len(result)-1 { // shouldn't for client know logic how to get NextCursor
+				paging.NextCursor = result[i].FakeId.String()
+			}
 		}
 		c.JSON(http.StatusOK, common.NewSuccessResponse(result, paging, nil))
 

@@ -4,9 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"ielts/common"
 	"ielts/component"
+	"ielts/module/course/coursebusiness"
 	"ielts/module/course/coursemodel"
-	"ielts/module/coursebusiness"
-	"ielts/module/coursestorage"
+	"ielts/module/course/coursestorage"
 	"net/http"
 )
 
@@ -27,6 +27,8 @@ func CreateCourse(appCtx component.AppContext) gin.HandlerFunc {
 			})
 			return
 		}
+		data.GenUID(common.DbTypeCourse)
+
 		c.JSON(http.StatusOK, common.SimpleSuccessResponse(data))
 	}
 }
