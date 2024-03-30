@@ -1,5 +1,5 @@
 package common
 
 const (
-	DbTypeCart = 1
+	DbTypeCourse = 1
 )
